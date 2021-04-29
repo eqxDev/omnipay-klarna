@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Date: Wed, 28 Apr 2021 09:07:15 GMT
+Content-Type: application/json;charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: openresty
+Vary: Accept-Encoding
+Klarna-Correlation-Id: 4e33a603-8009-4eeb-bef1-c0bca8b2bab8
+
+{
+    "order_id": "d8bcb0ac-deeb-325b-8472-ef2c4b9b3e8f",
+    "redirect_url": "https://js.playground.klarna.com/eu/kp/v1/sessions/9eb1ec31-52cd-37ba-abaf-baf665410dd6/redirect",
+    "fraud_status": "ACCEPTED",
+    "authorized_payment_method": {
+        "type": "invoice"
+    }
+}

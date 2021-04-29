@@ -1,0 +1,84 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://x.klarnacdn.net/kp/lib/v1/api.js" async></script>
+</head>
+<body>
+    
+<script type="text/javascript">
+//The following method initializes the Klarna Payments JS library
+    window.klarnaAsyncCallback = function () {
+        Klarna.Payments.init({ 
+            client_token: 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjgyMzA1ZWJjLWI4MTEtMzYzNy1hYTRjLTY2ZWNhMTg3NGYzZCJ9.eyJzZXNzaW9uX2lkIjoiYmNiMDg1ZDItZWE0NC0zOTYzLTg5MjUtN2FjYzFiYWUzZDIyIiwiYmFzZV91cmwiOiJodHRwczovL2pzLnBsYXlncm91bmQua2xhcm5hLmNvbS9ldS9rcCIsImRlc2lnbiI6ImtsYXJuYSIsImxhbmd1YWdlIjoiZW4iLCJwdXJjaGFzZV9jb3VudHJ5IjoiR0IiLCJlbnZpcm9ubWVudCI6InBsYXlncm91bmQiLCJtZXJjaGFudF9uYW1lIjoiWW91ciBidXNpbmVzcyBuYW1lIiwic2Vzc2lvbl90eXBlIjoiUEFZTUVOVFMiLCJjbGllbnRfZXZlbnRfYmFzZV91cmwiOiJodHRwczovL2V1LnBsYXlncm91bmQua2xhcm5hZXZ0LmNvbSIsInNjaGVtZSI6dHJ1ZSwiZXhwZXJpbWVudHMiOlt7Im5hbWUiOiJpbi1hcHAtc2RrLW5ldy1pbnRlcm5hbC1icm93c2VyIiwidmFyaWF0ZSI6Im5ldy1pbnRlcm5hbC1icm93c2VyLWVuYWJsZSIsInBhcmFtZXRlcnMiOnsidmFyaWF0ZV9pZCI6Im5ldy1pbnRlcm5hbC1icm93c2VyLWVuYWJsZSJ9fSx7Im5hbWUiOiJpbi1hcHAtc2RrLWNhcmQtc2Nhbm5pbmciLCJ2YXJpYXRlIjoiY2FyZC1zY2FubmluZy1lbmFibGUiLCJwYXJhbWV0ZXJzIjp7InZhcmlhdGVfaWQiOiJjYXJkLXNjYW5uaW5nLWVuYWJsZSJ9fV0sInJlZ2lvbiI6ImV1In0.YCs6brGjjxvySyU6iv3xVfsOfciYzwgLgjjs5Vz3412bCzRHI5puEN2DU4k4nHuO4pbzPpAvCza4NlL-uelNyUnOgzXaVi-ZXLv1KA6QfuyESLDuYw6IMG2fVnNRD7IhZCHQCVEWgxIMrcK3gxKqvCemQAvntdzl7nLb4BtGwiaRFXXfyUfMl9saDHT5S9H1l7aKV6etQ9DmoI-1jY1aUcXGErpG5wr-jFkcyf14cj6thXABzMlQGvwJxSV6hje54C79V-7m0fl7PFCbmnMN4drJxbeq78ewyNFsj-vTDerd4Fp4_oVYx899-qDpyv256nm3gt8lJsKGGCOPRI8b9g'
+        });
+        console.log("Payments initialized");
+//The following method loads the payment_method_category in the container with the id of 'klarna_container'
+        Klarna.Payments.load({
+        container: '#klarna_container',
+        payment_method_category: 'pay_later'
+            
+        }, function (res) {
+               console.log("Load function called")
+                console.debug(res);
+        });
+    };
+
+
+
+/*The following is the authorize function, which triggers Klarna to perform a risk assessment of the purchase 
+  The successful response of this risk assessment is an authorization token, which in this example is logged in the console
+*/
+  $(function(){
+    $("button.authorize").on('click', function(){
+        Klarna.Payments.authorize({
+            payment_method_category: 'pay_later'
+            }, {
+              billing_address: {
+                given_name: "Jane",
+                family_name: "Doe",
+                email: "jane@doe.com",
+                title: "Ms",
+                street_address: "512 City Park Ave",
+                postal_code: "43215",
+                city: "Columbus",
+                region: "oh",
+                phone: "+972545814998",
+                country: "GB"
+              },
+              order_amount: 2500,
+              order_tax_amount: 0,
+              order_lines: [{
+                type : "physical",
+                reference : "19-402",
+                name : "Running shoe",
+                quantity : 1,
+                unit_price : 2500,
+                tax_rate : 0,
+                total_amount : 2500,
+                total_discount_amount : 0,
+                total_tax_amount : 0
+            }],
+            }, function(res) {
+                console.log("Response from the authorize call:")
+                console.log(res)
+            })
+    })
+  })
+</script>
+
+
+<div style="width: 500px; margin: auto; padding-top: 150px; padding-bottom: 30px;">
+    <img src="https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg" style="width: 500px; margin: auto;"> 
+</div>
+
+<!--Klarna container-->
+<div id="klarna_container" style="width: 500px; margin: auto;"></div>
+<div style="width: 500px; margin: auto;">
+    <!--Button to trigger authorize call-->
+    <button class="authorize" style="width: 500px; height: 50px; margin: auto;">Buy</button>
+</div>
+
+
+
+</body>
+</html>
