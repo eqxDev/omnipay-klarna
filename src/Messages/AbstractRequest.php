@@ -27,6 +27,10 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest i
             return $this->getTestMode() ? $this->eu_test_base_url : $this->eu_base_url;
         }
 
+        if ($this->api_version_oceania === $this->getApiRegion()) {
+            return $this->getTestMode() ? $this->oc_test_base_url : $this->oc_base_url;
+        }
+
         return $this->getTestMode() ? $this->na_test_base_url : $this->na_base_url;
     }
 
