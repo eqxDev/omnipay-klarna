@@ -1,62 +1,35 @@
 <?php
-/**
- * Klarna Abstract Request
- */
 
 namespace Omnipay\Klarna\Messages;
 
-use Omnipay\Common\Exception\InvalidResponseException;
-use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\Klarna\Mask;
+use Omnipay\Common\ItemBag;
+use Omnipay\Klarna\ConstantTrait;
 use Omnipay\Klarna\RequestInterface;
-use Omnipay\Common\Exception\InvalidRequestException;
+use Omnipay\Klarna\ItemBag as KlarnaItemBag;
+use Omnipay\Common\Message\ResponseInterface;
+use Omnipay\Klarna\Messages\AbstractResponse;
+use Omnipay\Common\Exception\InvalidResponseException;
 
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest implements RequestInterface
 {
+    use ConstantTrait;
 
     /** @var array */
     protected $requestParams;
-
-
-    const API_VERSION_EUROPE        = 'EU';
-    const API_VERSION_NORTH_AMERICA = 'NA';
-
-    //Europe URL
-    const EU_BASE_URL      = 'https://api.klarna.com';
-    const EU_TEST_BASE_URL = 'https://api.playground.klarna.com';
-    
-    //North America URL
-    const NA_BASE_URL       = 'https://api-na.klarna.com';
-    const NA_TEST_BASE_URL  = 'https://api-na.playground.klarna.com';
 
     /**
      * @return string
      */
     public function getEndpoint(): string
     {
-        if (self::API_VERSION_EUROPE === $this->getApiRegion()) {
-            return $this->getTestMode() ? self::EU_TEST_BASE_URL : self::EU_BASE_URL;
+        if ($this->api_version_europe === $this->getApiRegion()) {
+            return $this->getTestMode() ? $this->eu_test_base_url : $this->eu_base_url;
         }
 
-        return $this->getTestMode() ? self::NA_TEST_BASE_URL : self::NA_BASE_URL;
+        return $this->getTestMode() ? $this->na_test_base_url : $this->na_base_url;
     }
 
-    /**
-     * @return string
-     */
-    public function getApiRegion(): string
-    {
-        return $this->getParameter('api_region') ?? self::API_VERSION_EUROPE;
-    }
-
-    /**
-     * @param string $value
-     * @return Gateway
-     */
-    public function setApiRegion(string $region): Gateway
-    {
-        return $this->setParameter('api_region', $region);
-    }
 
     /**
      * @return string
@@ -68,9 +41,8 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest i
 
     /**
      * @param string $value
-     * @return Gateway
      */
-    public function setUsername(string $value): Gateway
+    public function setUsername(string $value)
     {
         return $this->setParameter('username', $value);
     }
@@ -85,9 +57,8 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest i
 
     /**
      * @param string $value
-     * @return Gateway
      */
-    public function setPassword(string $value): Gateway
+    public function setPassword(string $value)
     {
         return $this->setParameter('password', $value);
     }
@@ -103,45 +74,34 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest i
 
     /**
      * @param string $value
-     * @return Gateway
      */
-    public function setLocale(string $value): Gateway
+    public function setLocale(string $value)
     {
         return $this->setParameter('locale', $value);
     }
 
-    /**
-     * @return string|null
-     */
-    public function getMerchantReference1()
+
+    public function setItems($items)
     {
-        return $this->getParameter('merchant_reference1');
+        if ($items && !$items instanceof ItemBag) {
+            $items = new KlarnaItemBag($items);
+        }
+
+        return $this->setParameter('items', $items);
     }
 
-    /**
-     * @param string $value
-     * @return Gateway
-     */
-    public function setMerchantReference1(string $value): Gateway
+    public function getAuthorization()
     {
-        return $this->setParameter('merchant_reference1', $value);
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getMerchantReference2()
-    {
-        return $this->getParameter('merchant_reference2');
-    }
-
-    /**
-     * @param string $value
-     * @return Gateway
-     */
-    public function setMerchantReference2(string $value): Gateway
-    {
-        return $this->setParameter('merchant_reference2', $value);
+        return  sprintf(
+            'Basic %s',
+            base64_encode(
+                sprintf(
+                    '%s:%s',
+                    $this->getUsername(),
+                    $this->getPassword()
+                )
+            )
+        );
     }
 
 
@@ -152,18 +112,36 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest i
      */
     public function sendData($data)
     {
-        try {
 
-            $httpRequest = $this->httpClient->request(
+        $body = null;
+
+        if (empty($data)) {
+            $body = null;
+        } else {
+            $body = json_encode($data);
+        }
+
+        $requestUrl = $this->getEndpoint();
+
+        $headerParams = array(
+            'Accept'         => 'application/json',
+            'Authorization'  => $this->getAuthorization(),
+            'Content-type'   => 'application/json',
+        );
+
+        try {
+            $httpResponse = $this->httpClient->request(
                 $this->getHttpMethod(),
-                $this->getEndpoint(),
-                ['Content-Type' => 'application/json'],
-                http_build_query($data)
+                $requestUrl,
+                $headerParams,
+                $body
             );
 
-            $response = (string)$httpRequest->getBody()->getContents();
+            // Empty response body should be parsed also as and empty array
+            $response = (string) $httpResponse->getBody()->getContents();
 
-            return $this->createResponse($response);
+            $jsonToArrayResponse = !empty($response) ? json_decode($response, true, 512, JSON_THROW_ON_ERROR) : array();
+            return $this->response = $this->createResponse($jsonToArrayResponse, $httpResponse->getStatusCode());
         } catch (\Exception $e) {
             throw new InvalidResponseException(
                 'Error communicating with payment gateway: ' . $e->getMessage(),
@@ -197,14 +175,13 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest i
      * @param string $data
      * @param string $key
      */
-    protected function updateValue(string &$data, string $key): void
+    protected function updateValue(&$data, $key): void
     {
         $sensitiveData = $this->getSensitiveData();
 
         if (\in_array($key, $sensitiveData, true)) {
             $data = Mask::mask($data);
         }
-
     }
 
     /**

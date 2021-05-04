@@ -1,52 +1,26 @@
 <?php
-/**
- * Klarna Authorize Request
- */
 
 namespace Omnipay\Klarna\Messages;
 
-use Omnipay\Klarna\ItemBag;
 use Omnipay\Common\Exception\InvalidRequestException;
 
 class AuthorizeRequest extends AbstractRequest
 {
+    use OrderRequestTrait;
+
     /**
      * @return array
      * @throws InvalidRequestException
      */
     public function getData(): array
     {
-
-        $data = [
-            'purchase_currency' => $this->getCurrency(),
-            'purchase_country'  => $this->getPurchaseCountry(),
-            'order_amount'      => $this->getAmount(),
-            'order_tax_amount'  => null === $this->getTaxAmount() ? 0 : (int) $this->getTaxAmount()->getAmount(),
-            'order_lines'       => $this->getItemData($this->getItems() ?? new ItemBag())
-        ];
+        $data = $this->getOrderData();
 
         $this->setRequestParams($data);
 
         return $data;
     }
 
-
-    /**
-     * @return string|null
-     */
-    public function getPurchaseCountry()
-    {
-        return $this->getParameter('purchase_country');
-    }
-
-    /**
-     * @param string $value
-     * @return $this
-     */
-    public function setPurchaseCountry(string $value): self
-    {
-        return $this->setParameter('purchase_country', $value);
-    }
 
     /**
      * @return string
@@ -74,8 +48,8 @@ class AuthorizeRequest extends AbstractRequest
 
     /**
      * @return string
-    */
-    public function getEndpoint() : string
+     */
+    public function getEndpoint(): string
     {
         return parent::getEndpoint() . '/payments/v1/sessions';
     }
@@ -93,4 +67,3 @@ class AuthorizeRequest extends AbstractRequest
         return $response;
     }
 }
-

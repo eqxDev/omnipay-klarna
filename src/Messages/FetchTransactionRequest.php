@@ -1,14 +1,10 @@
 <?php
-/**
- * Klarna Authorize Request
- */
 
 namespace Omnipay\Klarna\Messages;
 
-use Omnipay\Klarna\ItemBag;
 use Omnipay\Common\Exception\InvalidRequestException;
 
-class FetchRequest extends AbstractRequest
+class FetchTransactionRequest extends AbstractRequest
 {
     /**
      * @throws InvalidRequestException
@@ -19,8 +15,8 @@ class FetchRequest extends AbstractRequest
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     protected function getHttpMethod(): string
     {
         return 'GET';
@@ -52,10 +48,10 @@ class FetchRequest extends AbstractRequest
 
     /**
      * @return string
-    */
-    public function getEndpoint() : string
+     */
+    public function getEndpoint(): string
     {
-        return parent::getEndpoint() . '/ordermanagement/v1/orders/'.$this->getTransactionReference();
+        return parent::getEndpoint() . '/ordermanagement/v1/orders/' . $this->getTransactionReference();
     }
 
     /**
@@ -71,4 +67,3 @@ class FetchRequest extends AbstractRequest
         return $response;
     }
 }
-

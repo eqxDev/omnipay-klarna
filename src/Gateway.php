@@ -1,26 +1,35 @@
 <?php
+
 /**
  * Klarna Class using API
  */
 
 namespace Omnipay\Klarna;
 
+use Omnipay\Klarna\ConstantTrait;
 use Omnipay\Common\AbstractGateway;
+use Omnipay\Klarna\Messages\RefundRequest;
 use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Klarna\Messages\CaptureRequest;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Klarna\Messages\AuthorizeRequest;
-use Omnipay\Klarna\Messages\CancelRequest;
-use Omnipay\Klarna\Messages\CaptureRequest;
-use Omnipay\Klarna\Messages\RefundRequest;
+use Omnipay\Klarna\Messages\FetchTransactionRequest;
+
+
 
 /**
- * @method \Omnipay\Common\Message\RequestInterface authorize(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface capture(array $options = [])
- * @method \Omnipay\Common\Message\RequestInterface refund(array $options = [])
- * @method \Omnipay\Common\Message\RequestInterface void(array $options = [])
+ * @method \Omnipay\Common\Message\NotificationInterface acceptNotification(array $options = array())
+ * @method \Omnipay\Common\Message\RequestInterface completeAuthorize(array $options = array())
+ * @method \Omnipay\Common\Message\RequestInterface purchase(array $options = array())
+ * @method \Omnipay\Common\Message\RequestInterface completePurchase(array $options = array())
+ * @method \Omnipay\Common\Message\RequestInterface void(array $options = array())
+ * @method \Omnipay\Common\Message\RequestInterface createCard(array $options = array())
+ * @method \Omnipay\Common\Message\RequestInterface updateCard(array $options = array())
+ * @method \Omnipay\Common\Message\RequestInterface deleteCard(array $options = array())
  */
 class Gateway extends AbstractGateway
 {
+    use ConstantTrait;
     /**
      * Get gateway display name
      *
@@ -67,6 +76,22 @@ class Gateway extends AbstractGateway
     }
 
     /**
+     * @return string
+     */
+    public function getApiRegion(): string
+    {
+        return $this->getParameter('apiRegion');
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setApiRegion(string $region)
+    {
+        return $this->setParameter('apiRegion', $region);
+    }
+
+    /**
      * Default parameters.
      *
      * @return array
@@ -76,7 +101,7 @@ class Gateway extends AbstractGateway
         return [
             'username' => '',
             'password' => '',
-            'testMode' => true
+            'apiRegion' => ''
         ];
     }
 
@@ -100,11 +125,19 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $parameters
-     * @return RequestInterface
+     * @return AbstractRequest|RequestInterface
      */
     public function refund(array $parameters = []): RequestInterface
     {
         return $this->createRequest(RefundRequest::class, $parameters);
     }
 
+    /**
+     * @param array $parameters
+     * @return AbstractRequest|RequestInterface
+     */
+    public function fetchTransaction(array $parameters = []): RequestInterface
+    {
+        return $this->createRequest(FetchTransactionRequest::class, $parameters);
+    }
 }

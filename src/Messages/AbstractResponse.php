@@ -5,8 +5,6 @@ namespace Omnipay\Klarna\Messages;
 abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
 {
 
-    /** @var array */
-    public $serviceRequestParams;
 
     /**
      * @inheritdoc
@@ -21,7 +19,7 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
      */
     public function getMessage()
     {
-        return $this->data['error_message'] ?? null;
+        return $this->data['error_messages'] ?? null;
     }
 
     /**
@@ -48,7 +46,7 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
     {
         return $this->serviceRequestParams;
     }
-    
+
     /**
      * @param array $serviceRequestParams
      */
