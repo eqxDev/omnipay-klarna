@@ -15,7 +15,7 @@ class RefundRequest extends AbstractRequest
      */
     public function getData(): array
     {
-        $data = ['refunded_amount' => $this->getAmount()];
+        $data = ['refunded_amount' => (float)$this->getAmount()];
 
         $this->setRequestParams($data);
 

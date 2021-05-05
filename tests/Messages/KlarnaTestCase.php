@@ -19,8 +19,8 @@ class KlarnaTestCase extends TestCase
             "items" => [
                 [
                     "name" => "Running shoe",
-                    "quantity" => 2,
-                    "total_amount" => 5000,
+                    "quantity" => 1,
+                    "total_amount" => 2500,
                     "price" => 2500
                 ]
             ],
@@ -42,13 +42,13 @@ class KlarnaTestCase extends TestCase
             "items" => [
                 [
                     "name" => "Running shoe",
-                    "quantity" => 2,
-                    "total_amount" => 5000,
+                    "quantity" => 1,
+                    "total_amount" => 2500,
                     "price" => 2500
                 ]
             ],
             'merchantReference1' => 'capturetest01',
-            "transactionReference" => "d8bcb0ac-deeb-325b-8472-ef2c4b9b3e8f",
+            "authorizationToken" => "d8bcb0ac-deeb-325b-8472-ef2c4b9b3e8f",
         ];
 
         return $this->provideMergedParams($params);
@@ -58,7 +58,8 @@ class KlarnaTestCase extends TestCase
     {
 
         $params = [
-            "transactionReference" => "d8bcb0ac-deeb-325b-8472-ef2c4b9b3e8f"
+            "transactionReference" => "d8bcb0ac-deeb-325b-8472-ef2c4b9b3e8f",
+            'amount'=>'100'
         ];
 
         return $this->provideMergedParams($params);

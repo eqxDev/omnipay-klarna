@@ -9,9 +9,10 @@ trait OrderRequestTrait
     public function getOrderData()
     {
         $data = [
+            'locale'            => $this->getLocale(),
             'purchase_currency' => $this->getCurrency(),
             'purchase_country'  => $this->getPurchaseCountry(),
-            'order_amount'      => $this->getAmount(),
+            'order_amount'      => (float)$this->getAmount(),
             'order_tax_amount'  => null === $this->getTaxAmount() ? 0 : (int) $this->getTaxAmount(),
         ];
 
@@ -25,7 +26,7 @@ trait OrderRequestTrait
                 $itemList[] = [
                     'name' => $item->getName(),
                     'quantity' => $item->getQuantity(),
-                    'tax_rate' => null === $item->getTaxRate() ? 0 : (int) ($item->getTaxRate() * 100),
+                    'tax_rate' => null === $item->getTaxRate() ? null : (int) ($item->getTaxRate() * 100),
                     'total_amount' => (int) $item->getPrice() * (float)$item->getQuantity(),
                     'unit_price' => (int) $item->getPrice(),
                     'merchant_data' => $item->getMerchantData()

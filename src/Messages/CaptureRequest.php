@@ -16,7 +16,7 @@ class CaptureRequest extends AbstractRequest
     {
 
         $data = $this->getOrderData();
-        $data['auto_capture'] = $this->getAutoCapture();
+        $data['autoCapture'] = $this->getAutoCapture();
         $this->setRequestParams($data);
 
         return $data;
@@ -27,7 +27,7 @@ class CaptureRequest extends AbstractRequest
      */
     public function getAutoCapture()
     {
-        return $this->getParameter('auto_capture') ?? true;
+        return $this->getParameter('autoCapture') ?? true;
     }
 
 
@@ -36,7 +36,7 @@ class CaptureRequest extends AbstractRequest
      */
     public function getAuthorizationToken()
     {
-        return $this->getParameter('authorization_token');
+        return $this->getParameter('authorizationToken');
     }
 
     /**
@@ -45,7 +45,7 @@ class CaptureRequest extends AbstractRequest
      */
     public function setAuthorizationToken(string $value): self
     {
-        return $this->setParameter('authorization_token', $value);
+        return $this->setParameter('authorizationToken', $value);
     }
 
 
