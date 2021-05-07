@@ -10,7 +10,7 @@ use Omnipay\Klarna\ConstantTrait;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Klarna\Messages\RefundRequest;
 use Omnipay\Common\Message\AbstractRequest;
-use Omnipay\Klarna\Messages\CaptureRequest;
+use Omnipay\Klarna\Messages\PurchaseRequest;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Klarna\Messages\AuthorizeRequest;
 use Omnipay\Klarna\Messages\FetchTransactionRequest;
@@ -118,9 +118,9 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return AbstractRequest|RequestInterface
      */
-    public function capture(array $parameters = []): RequestInterface
+    public function purchase(array $parameters = []): RequestInterface
     {
-        return $this->createRequest(CaptureRequest::class, $parameters);
+        return $this->createRequest(PurchaseRequest::class, $parameters);
     }
 
     /**

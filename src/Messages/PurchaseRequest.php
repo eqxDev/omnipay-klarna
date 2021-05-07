@@ -4,7 +4,7 @@ namespace Omnipay\Klarna\Messages;
 
 use Omnipay\Common\Exception\InvalidRequestException;
 
-class CaptureRequest extends AbstractRequest
+class PurchaseRequest extends AbstractRequest
 {
     use OrderRequestTrait;
 
@@ -54,7 +54,7 @@ class CaptureRequest extends AbstractRequest
      */
     public function getProcessType(): string
     {
-        return 'CAPTURE';
+        return 'PURCHASE';
     }
 
     /**
@@ -62,7 +62,7 @@ class CaptureRequest extends AbstractRequest
      */
     public function getProcessName(): string
     {
-        return 'Capture';
+        return 'Purchase';
     }
 
     /**
@@ -81,11 +81,11 @@ class CaptureRequest extends AbstractRequest
 
     /**
      * @param $data
-     * @return CaptureResponse
+     * @return PurchaseResponse
      */
-    protected function createResponse($data): CaptureResponse
+    protected function createResponse($data): PurchaseResponse
     {
-        $response = new CaptureResponse($this, $data);
+        $response = new PurchaseResponse($this, $data);
         $requestParams = $this->getRequestParams();
         $response->setServiceRequestParams($requestParams);
 

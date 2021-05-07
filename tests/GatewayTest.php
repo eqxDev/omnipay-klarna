@@ -6,7 +6,7 @@ namespace OmnipayTest\Klarna;
 use Omnipay\Klarna\Gateway;
 use Omnipay\Tests\GatewayTestCase;
 use Omnipay\Klarna\Messages\RefundRequest;
-use Omnipay\Klarna\Messages\CaptureRequest;
+use Omnipay\Klarna\Messages\PurchaseRequest;
 use Omnipay\Klarna\Messages\AuthorizeRequest;
 use Omnipay\Klarna\Messages\FetchTransactionRequest;
 
@@ -58,7 +58,7 @@ class GatewayTest extends GatewayTestCase
         self::assertInstanceOf(AuthorizeRequest::class, $request);
     }
 
-    public function testCapture(): void
+    public function testPurchase(): void
     {
 
         $params = [
@@ -79,14 +79,14 @@ class GatewayTest extends GatewayTestCase
             "authorizationToken" => "d8bcb0ac-deeb-325b-8472-ef2c4b9b3e8f",
         ];
 
-        $request = $this->gateway->capture($params);
+        $request = $this->gateway->purchase($params);
 
-        /** @var CaptureResponse $response */
+        /** @var PurchaseResponse $response */
         /*$response = $request->send();
         var_dump($response->getRequest()->getEndPoint());
         var_dump($response->getMessage());
         self::assertTrue($response->isSuccessful());*/
-        self::assertInstanceOf(CaptureRequest::class, $request);
+        self::assertInstanceOf(PurchaseRequest::class, $request);
     }
 
     public function testRefund(): void

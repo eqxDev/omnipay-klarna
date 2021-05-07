@@ -27,7 +27,7 @@ class RefundRequestTest extends KlarnaTestCase
 
     public function testSendSuccess(): void
     {
-        $this->setMockHttpResponse('CaptureSuccess.txt');
+        $this->setMockHttpResponse('PurchaseSuccess.txt');
         $response = $this->request->send();
 
         self::assertTrue($response->isSuccessful());
@@ -35,7 +35,7 @@ class RefundRequestTest extends KlarnaTestCase
 
     public function testSendError(): void
     {
-        $this->setMockHttpResponse('CaptureFailure.txt');
+        $this->setMockHttpResponse('PurchaseFailure.txt');
         $response = $this->request->send();
 
         self::assertFalse($response->isSuccessful());

@@ -2,19 +2,19 @@
 
 namespace OmnipayTest\Klarna\Messages;
 
-use Omnipay\Klarna\Messages\CaptureRequest;
+use Omnipay\Klarna\Messages\PurchaseRequest;
 
-class CaptureRequestTest extends KlarnaTestCase
+class PurchaseRequestTest extends KlarnaTestCase
 {
     /**
-     * @var CaptureRequest
+     * @var PurchaseRequest
      */
     private $request;
 
     public function setUp(): void
     {
-        $this->request = new CaptureRequest($this->getHttpClient(), $this->getHttpRequest());
-        $this->request->initialize($this->getCaptureParams());
+        $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
+        $this->request->initialize($this->getPurchaseParams());
     }
 
     public function testEndpoint(): void
@@ -27,7 +27,7 @@ class CaptureRequestTest extends KlarnaTestCase
 
     public function testSendSuccess(): void
     {
-        $this->setMockHttpResponse('CaptureSuccess.txt');
+        $this->setMockHttpResponse('PurchaseSuccess.txt');
         $response = $this->request->send();
 
         self::assertTrue($response->isSuccessful());
@@ -35,7 +35,7 @@ class CaptureRequestTest extends KlarnaTestCase
 
     public function testSendError(): void
     {
-        $this->setMockHttpResponse('CaptureFailure.txt');
+        $this->setMockHttpResponse('PurchaseFailure.txt');
         $response = $this->request->send();
 
         self::assertFalse($response->isSuccessful());

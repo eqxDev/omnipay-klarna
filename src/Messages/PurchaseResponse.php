@@ -2,7 +2,7 @@
 
 namespace Omnipay\Klarna\Messages;
 
-class CaptureResponse extends AbstractResponse
+class PurchaseResponse extends AbstractResponse
 {
 
     /**

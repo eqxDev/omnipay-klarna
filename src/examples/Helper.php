@@ -28,7 +28,7 @@ class Helper
         return $this->provideMergedParams($params);
     }
 
-    protected function getCaptureParams(): array
+    protected function getPurchaseParams(): array
     {
 
         $params = [

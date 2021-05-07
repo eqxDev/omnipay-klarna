@@ -4,7 +4,7 @@
 $loader = require  '../vendor/autoload.php';
 $loader->addPsr4('Examples\\', __DIR__);
 
-use Omnipay\Klarna\Message\CaptureResponse;
+use Omnipay\Klarna\Message\PurchaseResponse;
 use Omnipay\Klarna\Gateway;
 use Examples\Helper;
 
@@ -12,13 +12,13 @@ $gateway = new Gateway();
 
 $helper = new Helper();
 try {
-    $params = $helper->getCaptureParams();
+    $params = $helper->getPurchaseParams();
 } catch (Exception $e) {
     throw new \RuntimeException($e->getMessage());
 }
 
-/** @var CaptureResponse $response */
-$response = $gateway->capture($params)->send();
+/** @var PurchaseResponse $response */
+$response = $gateway->purchase($params)->send();
 
 $result = [
     'status' => $response->isSuccessful() ?: 0,
