@@ -1,0 +1,23 @@
+HTTP/1.1 200 OK
+Date: Mon, 26 Apr 2021 08:24:09 GMT
+Content-Type: application/json;charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: openresty
+Vary: Accept-Encoding
+Klarna-Correlation-Id: d06ba9f7-9747-4615-ae57-2515ca5d7852
+
+{
+ "client_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJzZXNzaW9uX2lkIiA6ICIw",
+ "session_id": "0b1d9815-165e-42e2-8867-35bc03789e00",
+ "payment_method_categories": [
+  {
+   "asset_urls": {
+    "descriptive": "https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg",
+    "standard": "https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg"
+   },
+   "identifier": "pay_later",
+   "name": "Pay Later"
+  }
+ ]
+}

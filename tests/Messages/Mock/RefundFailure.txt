@@ -1,0 +1,15 @@
+HTTP/1.1 422 Forbidden
+Date: Wed, 28 Apr 2021 09:10:06 GMT
+Content-Length: 0
+Connection: keep-alive
+Server: openresty
+Location: https://api.playground.klarna.com/ordermanagement/v1/orders/d8bcb0ac-deeb-325b-8472-ef2c4b9b3e8f/refunds/b7d345c9-b9e5-404e-aa13-7ea4956bba8e
+
+{
+    "error_code": "UNPROCESSABLE_ENTITY",
+    "error_messages": [
+        "'refunded_amount' must not be null"
+    ],
+    "correlation_id": "04764c71-8e00-4a1b-a60b-35e345702ef4"
+}
+

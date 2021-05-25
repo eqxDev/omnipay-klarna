@@ -1,0 +1,16 @@
+HTTP/1.1 404 Not Found
+Date: Wed, 28 Apr 2021 09:07:15 GMT
+Content-Type: application/json;charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: openresty
+Vary: Accept-Encoding
+Klarna-Correlation-Id: 4e33a603-8009-4eeb-bef1-c0bca8b2bab8
+
+{
+    "error_code": "NOT_FOUND",
+    "error_messages": [
+        "Invalid authorization token"
+    ],
+    "correlation_id": "1ebf1654-17a7-4078-968c-4f6e93a4c652"
+}

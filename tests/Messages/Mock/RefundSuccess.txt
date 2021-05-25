@@ -1,0 +1,12 @@
+HTTP/1.1 201 Created
+Date: Wed, 28 Apr 2021 09:10:06 GMT
+Content-Length: 0
+Connection: keep-alive
+Server: openresty
+Location: https://api.playground.klarna.com/ordermanagement/v1/orders/d8bcb0ac-deeb-325b-8472-ef2c4b9b3e8f/refunds/b7d345c9-b9e5-404e-aa13-7ea4956bba8e
+Refund-Id: b7d345c9-b9e5-404e-aa13-7ea4956bba8e
+Transaction-Id: 6ce6ee6f-9708-42f2-a596-05c780276be8
+{
+    "refunded_amount" : 100
+}
+

@@ -1,0 +1,146 @@
+HTTP/1.1 200 OK
+Date: Sat, 01 May 2021 14:58:04 GMT
+Content-Type: application/json;charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: openresty
+Vary: Accept-Encoding
+Klarna-Correlation-Id: b472271f-51b9-4156-9815-54002cb56691
+
+{
+    "order_id": "d8bcb0ac-deeb-325b-8472-ef2c4b9b3e8f",
+    "status": "CAPTURED",
+    "fraud_status": "ACCEPTED",
+    "order_amount": 2500,
+    "original_order_amount": 2500,
+    "captured_amount": 2500,
+    "refunded_amount": 200,
+    "remaining_authorized_amount": 0,
+    "purchase_currency": "GBP",
+    "locale": "en-GB",
+    "order_lines": [
+        {
+            "reference": "",
+            "type": "physical",
+            "quantity": 1,
+            "quantity_unit": "",
+            "name": "Running shoe",
+            "total_amount": 2500,
+            "unit_price": 2500,
+            "total_discount_amount": 0,
+            "tax_rate": 0,
+            "total_tax_amount": 0,
+            "product_url": "https://www.estore.com/products/f2a8d7e34",
+            "image_url": "https://www.estore.com/product_image.png"
+        }
+    ],
+    "klarna_reference": "V0G350MV",
+    "customer": {
+        "date_of_birth": "1986-11-21",
+        "type": "person"
+    },
+    "billing_address": {
+        "given_name": "Jane",
+        "family_name": "Doe",
+        "title": "Ms",
+        "street_address": "44 Keswick Road",
+        "street_address2": "",
+        "postal_code": "SW15 2JE",
+        "city": "London",
+        "region": "",
+        "country": "GB",
+        "email": "jane@doe.com",
+        "phone": "+972545814998"
+    },
+    "shipping_address": {
+        "given_name": "Jane",
+        "family_name": "Doe",
+        "title": "Ms",
+        "street_address": "44 Keswick Road",
+        "street_address2": "",
+        "postal_code": "SW15 2JE",
+        "city": "London",
+        "region": "",
+        "country": "GB",
+        "email": "jane@doe.com",
+        "phone": "+972545814998"
+    },
+    "created_at": "2021-04-26T07:02:50.439Z",
+    "purchase_country": "GB",
+    "expires_at": "2021-05-21T00:00:00.000Z",
+    "captures": [
+        {
+            "capture_id": "07cbbad9-acb8-43a3-a993-3aa91fc1f921",
+            "klarna_reference": "V0G350MV-1",
+            "captured_amount": 2500,
+            "captured_at": "2021-04-26T07:02:51.159Z",
+            "description": "",
+            "order_lines": [
+                {
+                    "reference": "",
+                    "type": "physical",
+                    "quantity": 1,
+                    "quantity_unit": "",
+                    "name": "Running shoe",
+                    "total_amount": 2500,
+                    "unit_price": 2500,
+                    "total_discount_amount": 0,
+                    "tax_rate": 0,
+                    "total_tax_amount": 0,
+                    "product_url": "https://www.estore.com/products/f2a8d7e34",
+                    "image_url": "https://www.estore.com/product_image.png"
+                }
+            ],
+            "refunded_amount": 0,
+            "billing_address": {
+                "given_name": "Jane",
+                "family_name": "Doe",
+                "title": "Ms",
+                "street_address": "44 Keswick Road",
+                "street_address2": "",
+                "postal_code": "SW15 2JE",
+                "city": "London",
+                "region": "",
+                "country": "GB",
+                "email": "jane@doe.com",
+                "phone": "+972545814998"
+            },
+            "shipping_address": {
+                "given_name": "Jane",
+                "family_name": "Doe",
+                "title": "Ms",
+                "street_address": "44 Keswick Road",
+                "street_address2": "",
+                "postal_code": "SW15 2JE",
+                "city": "London",
+                "region": "",
+                "country": "GB",
+                "email": "jane@doe.com",
+                "phone": "+972545814998"
+            },
+            "shipping_info": []
+        }
+    ],
+    "refunds": [
+        {
+            "refund_id": "4e38e852-b5ce-4ea5-9a99-ad7d3e139f28",
+            "refunded_amount": 100,
+            "refunded_at": "2021-04-26T15:06:31.494Z",
+            "description": "",
+            "order_lines": [],
+            "credit_invoice": false
+        },
+        {
+            "refund_id": "b7d345c9-b9e5-404e-aa13-7ea4956bba8e",
+            "refunded_amount": 100,
+            "refunded_at": "2021-04-28T09:10:06.385Z",
+            "description": "",
+            "order_lines": [],
+            "credit_invoice": false
+        }
+    ],
+    "initial_payment_method": {
+        "type": "INVOICE",
+        "description": "Pay later"
+    }
+}

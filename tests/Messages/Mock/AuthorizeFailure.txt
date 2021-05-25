@@ -1,0 +1,17 @@
+HTTP/1.1 400 Bad Request
+Date: Wed, 28 Apr 2021 09:24:10 GMT
+Content-Type: application/json
+Content-Length: 145
+Connection: keep-alive
+Server: openresty
+Render-Time: 0
+Klarna-Correlation-Id: 45bbd1be-f264-4871-9c36-3a9d7abf37aa
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+{
+    "error_code": "BAD_VALUE",
+    "error_messages": [
+        "Bad value: order_amount"
+    ],
+    "correlation_id": "7c3bdaf8-0629-4494-b6ce-5ebde59ec4b0"
+}

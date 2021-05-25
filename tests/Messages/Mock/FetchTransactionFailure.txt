@@ -1,0 +1,16 @@
+HTTP/1.1 404 Not Found
+Date: Wed, 28 Apr 2021 09:07:15 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: openresty
+Vary: Accept-Encoding
+Klarna-Correlation-Id: 4e33a603-8009-4eeb-bef1-c0bca8b2bab8
+
+{
+    "error_code": "NO_SUCH_ORDER",
+    "error_messages": [
+        "Order d8bcb0ac-deeb-325b-8472-ef2c4b9b3e8 cannot be found."
+    ],
+    "correlation_id": "61464e8e-6651-4ad5-bd2c-b8dcd9727c01"
+}
