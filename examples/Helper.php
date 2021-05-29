@@ -6,7 +6,7 @@ namespace Examples;
 class Helper
 {
     
-    protected function getAuthorizeParams(): array
+    public function getAuthorizeParams(): array
     {
 
         $params = [
@@ -28,7 +28,7 @@ class Helper
         return $this->provideMergedParams($params);
     }
 
-    protected function getPurchaseParams(): array
+    public function getPurchaseParams(): array
     {
 
         $params = [
@@ -51,7 +51,7 @@ class Helper
         return $this->provideMergedParams($params);
     }
 
-    protected function getRefundParams(): array
+    public function getRefundParams(): array
     {
 
         $params = [
@@ -61,7 +61,7 @@ class Helper
         return $this->provideMergedParams($params);
     }
 
-    protected function getFetchTransactionParams(): array
+    public function getFetchTransactionParams(): array
     {
 
         $params = [
@@ -75,8 +75,8 @@ class Helper
     {
         return [
             'testMode' => true,
-            'username' => 'PK38317_8ce7a31eee36',
-            'password' => 'q27OwAhNLtgAlPeY',
+            'username' => 'USERNAME',
+            'password' => 'PASSWORD',
             'apiRegion' => 'EU',
         ];
     }
