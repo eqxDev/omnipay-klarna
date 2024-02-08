@@ -1,8 +1,8 @@
 {
-  "name": "eqxDev/omnipay-klarna",
+  "name": "eqxdev/omnipay-klarna",
   "type": "library",
   "description": "Klarna gateway for Omnipay payment processing library",
-  "homepage": "https://github.com/alegraio/omnipay-klarna",
+  "homepage": "https://github.com/eqxDev/omnipay-klarna",
   "license": "MIT",
   "autoload": {
     "psr-4": {
