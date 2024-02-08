@@ -11,4 +11,5 @@ interface ItemInterface extends \Omnipay\Common\ItemInterface
     public function getTotalDiscountAmount();
     public function getTotalTaxAmount();
     public function getType();
+    public function getReference();
 }

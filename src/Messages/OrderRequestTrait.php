@@ -9,11 +9,11 @@ trait OrderRequestTrait
     public function getOrderData()
     {
         $data = [
-            'locale'            => $this->getLocale(),
+            'locale' => $this->getLocale(),
             'purchase_currency' => $this->getCurrency(),
-            'purchase_country'  => $this->getPurchaseCountry(),
-            'order_amount'      => (float)$this->getAmount(),
-            'order_tax_amount'  => null === $this->getTaxAmount() ? 0 : (int) $this->getTaxAmount(),
+            'purchase_country' => $this->getPurchaseCountry(),
+            'order_amount' => (float)$this->getAmount(),
+            'order_tax_amount' => null === $this->getTaxAmount() ? 0 : (int)$this->getTaxAmount(),
         ];
 
         $items = $this->getItems();
@@ -21,17 +21,20 @@ trait OrderRequestTrait
         if ($items) {
 
             $itemList = [];
+        }
+        foreach ($items as $n => $item) {
 
-            foreach ($items as $n => $item) {
-                $itemList[] = [
-                    'name' => $item->getName(),
-                    'quantity' => $item->getQuantity(),
-                    'tax_rate' => null === $item->getTaxRate() ? null : (int) ($item->getTaxRate() * 100),
-                    'total_amount' => (int) $item->getPrice() * (float)$item->getQuantity(),
-                    'unit_price' => (int) $item->getPrice(),
-                    'merchant_data' => $item->getMerchantData()
-                ];
-            }
+            $itemList[] = [
+                'name' => $item->getName(),
+                'reference' => $item->getReference(),
+                'quantity' => $item->getQuantity(),
+                'tax_rate' => null === $item->getTaxRate() ? null : (int)($item->getTaxRate() * 100),
+                'total_amount' => (int)($item->getPrice() * (float)$item->getQuantity()),
+                'unit_price' => (int)$item->getPrice(),
+                'total_tax_amount' => (int)$item->getTotalTaxAmount(),
+                'merchant_data' => $item->getMerchantData()
+            ];
+
             $data['order_lines'] = $itemList;
 
         }
@@ -134,7 +137,7 @@ trait OrderRequestTrait
      */
     public function setShippingAddress(array $shippingAddress): self
     {
-        return $this->setParameter('shippingAddress',  Address::fromArray($shippingAddress));
+        return $this->setParameter('shippingAddress', Address::fromArray($shippingAddress));
     }
 
     /**

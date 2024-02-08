@@ -102,4 +102,17 @@ class Item extends \Omnipay\Common\Item implements ItemInterface
     {
         $this->setParameter('type', $type);
     }
+
+    public function getReference()
+    {
+        return $this->getParameter('reference');
+    }
+
+    /**
+     * @param string $reference
+     */
+    public function setReference($reference)
+    {
+        $this->setParameter('reference', $reference);
+    }
 }
