@@ -1,5 +1,5 @@
 {
-  "name": "alegra/omnipay-klarna",
+  "name": "eqxDev/omnipay-klarna",
   "type": "library",
   "description": "Klarna gateway for Omnipay payment processing library",
   "homepage": "https://github.com/alegraio/omnipay-klarna",
