@@ -16,7 +16,7 @@ class PurchaseRequest extends AbstractRequest
     {
 
         $data = $this->getOrderData();
-        $data['autoCapture'] = $this->getAutoCapture();
+        $data['auto_capture'] = $this->getAutoCapture();
         $this->setRequestParams($data);
 
         return $data;
