@@ -39,6 +39,23 @@ class AuthorizeRequest extends AbstractRequest
     }
 
     /**
+     * @return string|null
+     */
+    public function getSessionId()
+    {
+        return $this->getParameter('sessionId');
+    }
+
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function setSessionId(string $value): self
+    {
+        return $this->setParameter('sessionId', $value);
+    }
+
+    /**
      * @return array
      */
     public function getSensitiveData(): array
@@ -51,7 +68,11 @@ class AuthorizeRequest extends AbstractRequest
      */
     public function getEndpoint(): string
     {
-        return parent::getEndpoint() . '/payments/v1/sessions';
+        if ($this->getSessionId() == null) {
+            return parent::getEndpoint() . '/payments/v1/sessions';
+        }
+
+        return parent::getEndpoint() . '/payments/v1/sessions/' . $this->getSessionId();
     }
 
     /**
